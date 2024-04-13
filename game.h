@@ -14,7 +14,12 @@ private:
     Player PaddleA;
     Player PaddleB;
     Ball ball;
+
+    int ScoreA;
+    int ScoreB;
+    int Timer;
     
+    double LastTime;
 
 public:
     Game(int w, int h);
@@ -24,5 +29,6 @@ public:
     void Update();
     void Draw();
     void DrawLine();
+    void DrawTime();
 };
 

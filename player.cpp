@@ -48,6 +48,23 @@ bool Player::BallCollide(Ball *ball)
     return CheckCollisionCircleRec(ball->GetPosition(), ball->GetRadius(), this->Paddle);
 }
 
+void Player::Reset()
+{
+    if(this->Paddle.height < 100){
+
+    this->Paddle.height += this->Increment / GetFPS();
+    this->Paddle.y -= this->Increment / GetFPS() / 2;
+    }
+
+    if (this->Paddle.height > 100)
+     this->Paddle.height = 100;
+}
+
+int Player::GetHeight()
+{
+    return this->height;
+}
+
 void Player::SetHeight(int a)
 {
     if(this->Paddle.height > 20)

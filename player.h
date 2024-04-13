@@ -13,13 +13,17 @@ private:
     Rectangle Health;
 
 public:
+    float Increment;
+
     Player();
     ~Player();
     void Init(Vector2 pos, float w, float h, Color col);
     void PongUpdate(KeyboardKey Up, KeyboardKey Down);
     void PongDraw();
     bool BallCollide(Ball *ball);
+    void Reset();
 
+    int GetHeight();
     void SetHeight(int a);
     Rectangle GetPaddle();
 };

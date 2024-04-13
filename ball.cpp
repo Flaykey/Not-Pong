@@ -39,6 +39,11 @@ void Ball::Update()
 
 }
 
+void Ball::Reset()
+{
+    
+}
+
 Vector2 Ball::GetPosition()
 {
     return this->pos;
