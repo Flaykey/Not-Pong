@@ -54,7 +54,11 @@ void Game::Update()
     else {
         this->PaddleA.Reset();
         this->PaddleB.Reset();
+        if(Timer <= 2){
+            this->ball.Reset();
+        }
     }
+    
 
     if (this->PaddleA.BallCollide(&this->ball) && this->ball.GetVel().x < 0)
     {    
@@ -68,11 +72,13 @@ void Game::Update()
     this->PaddleB.SetHeight(2);
     }
 
-    if(this->ball.GetPosition().x - this->ball.GetRadius() < 0 || this->ball.GetPosition().x + this->ball.GetRadius() > GetScreenWidth())
+    if((this->ball.GetPosition().x - this->ball.GetRadius() < 0 || this->ball.GetPosition().x + this->ball.GetRadius() > GetScreenWidth()) && (this->Timer == -1))
     {
-        this->ball.Init();
         this->PaddleA.Increment = this->PaddleA.GetHeight() - this->PaddleA.GetPaddle().height;
         this->PaddleB.Increment = this->PaddleB.GetHeight() - this->PaddleB.GetPaddle().height;
+        this->ball.dir = Vector2Subtract(Vector2{(float)GetScreenWidth()/2,(float) GetScreenHeight()/2} , this->ball.GetPosition());
+        this->ball.distance = Vector2Length(this->ball.dir);
+        this->ball.dir = Vector2Normalize(this->ball.dir);
         this->Timer = 3;
         this->LastTime = GetTime();
     }

@@ -31,8 +31,12 @@ void Ball::Update()
     this->pos = Vector2Add(this->pos, this->vel);
 
     // celling    
-    if(this->pos.y - this->radius < 0 || this->pos.y + this->radius > GetScreenHeight())
+    if(this->pos.y - this->radius < 0 && this->vel.y < 0)
     {
+        this->vel.y *= -1;
+        this->speed += 0.1;
+    }
+    else if( this->pos.y + this->radius > GetScreenHeight() && this->vel.y > 0){
         this->vel.y *= -1;
         this->speed += 0.1;
     }
@@ -41,7 +45,12 @@ void Ball::Update()
 
 void Ball::Reset()
 {
-    
+    if((int)Vector2Distance(this->pos , Vector2{(float)GetScreenWidth()/2,(float) GetScreenHeight()/2} ) != 0)
+    this->pos = Vector2Add(this->pos , Vector2Scale(this->dir , distance / 60 ));
+    else{
+        this->pos = Vector2{(float) GetScreenWidth()/2 ,(float) GetScreenHeight()/2};
+    }
+    this->speed = 5.0f;
 }
 
 Vector2 Ball::GetPosition()

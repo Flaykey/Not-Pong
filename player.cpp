@@ -52,8 +52,8 @@ void Player::Reset()
 {
     if(this->Paddle.height < 100){
 
-    this->Paddle.height += this->Increment / GetFPS();
-    this->Paddle.y -= this->Increment / GetFPS() / 2;
+    this->Paddle.height += this->Increment / GetFPS() / 2;
+    this->Paddle.y -= this->Increment / GetFPS() / 4;
     }
 
     if (this->Paddle.height > 100)

@@ -11,7 +11,11 @@ private:
     float speed;
     Vector2 pos;
     Vector2 vel;
+
 public:
+    Vector2 dir;
+    float distance;
+
     Ball();
     ~Ball();
     void Init();
