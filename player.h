@@ -20,6 +20,10 @@ public:
     void Init(Vector2 pos, float w, float h, Color col);
     void PongUpdate(KeyboardKey Up, KeyboardKey Down);
     void PongDraw();
+
+    void BattleUpdate();
+    void BattleDraw();
+
     bool BallCollide(Ball *ball);
     void Reset();
 

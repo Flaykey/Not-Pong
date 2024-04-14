@@ -24,7 +24,9 @@ void Game::Init()
     this->ScoreA = 0;
     this->ScoreB = 0;
     this->Timer = -1;
-    this->LastTime = 0;
+    this->ResetLastTime = 0;
+
+    this->state = 1;
 
 
 }
@@ -44,6 +46,41 @@ void Game::Run()
 }
 
 void Game::Update()
+{
+    switch (this->state)
+    {
+    case 1:
+        this->UpdatePong();
+        break;
+    case 2:
+        this->UpdateBattle();
+        break;
+    default:
+        break;
+    }
+    
+
+}
+
+void Game::Draw()
+{   
+    this->DrawScore();
+    
+    switch (this->state)
+    {
+    case 1:
+        this->DrawPong();
+        break;
+    case 2:
+        this->DrawBattle();
+        break;
+    default:
+        break;
+    }
+
+}
+
+void Game::UpdatePong()
 {
     this->PaddleA.PongUpdate(KEY_W,KEY_S);
     this->PaddleB.PongUpdate(KEY_UP,KEY_DOWN);
@@ -80,18 +117,35 @@ void Game::Update()
         this->ball.distance = Vector2Length(this->ball.dir);
         this->ball.dir = Vector2Normalize(this->ball.dir);
         this->Timer = 3;
-        this->LastTime = GetTime();
+        this->ResetLastTime = GetTime();
+        if(this->ball.GetPosition().x < GetScreenWidth()/2){
+            ScoreB++;
+        }
+        else{
+            ScoreA++;
+        }
     }
-
 }
 
-void Game::Draw()
+void Game::DrawPong()
 {
     this->DrawLine();
     this->DrawTime();
     this->ball.Draw();
     this->PaddleA.PongDraw();
     this->PaddleB.PongDraw();
+}
+
+void Game::UpdateBattle()
+{
+    this->PaddleA.BattleUpdate();
+    this->PaddleB.BattleUpdate();
+}
+
+void Game::DrawBattle()
+{
+    this->PaddleA.BattleDraw();
+    this->PaddleB.BattleDraw();
 }
 
 void Game::DrawLine()
@@ -111,18 +165,24 @@ void Game::DrawTime()
             DrawText(TextFormat("%d",this->Timer) , GetScreenWidth() / 2 - 25, 40, 100, WHITE);
         if (Timer == 1)
             DrawText(TextFormat("%d",this->Timer) , GetScreenWidth() / 2 - 15, 40, 100, WHITE);
-        if(GetTime() - LastTime >= 1){
-            LastTime = GetTime();
+        if(GetTime() - ResetLastTime >= 1){
+            ResetLastTime = GetTime();
             Timer--;
         }
     }
     else if(Timer == 0){
+        this->state++;
+        // DrawText("GO!", GetScreenWidth() / 2 - 65, 40, 100, WHITE);
         
-        DrawText("GO!", GetScreenWidth() / 2 - 65, 40, 100, WHITE);
-        
-        if(GetTime() - LastTime >= 1){
-            LastTime = GetTime();
-            Timer--;
-        }
+        // if(GetTime() - ResetLastTime >= 1){
+        //     LastTime = GetTime();
+        //     Timer--;
+        // }
     }
+}
+
+void Game::DrawScore()
+{
+    DrawText(TextFormat("%d",this->ScoreA) , GetScreenWidth() / 4 - 25, 30, 50, WHITE);
+    DrawText(TextFormat("%d",this->ScoreB) , GetScreenWidth() / 2 + GetScreenWidth() / 4 - 25, 30, 50, WHITE);
 }

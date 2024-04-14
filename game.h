@@ -19,7 +19,9 @@ private:
     int ScoreB;
     int Timer;
     
-    double LastTime;
+    double ResetLastTime;
+
+    int state;
 
 public:
     Game(int w, int h);
@@ -28,7 +30,16 @@ public:
     void Run();
     void Update();
     void Draw();
+
+    void UpdatePong();
+    void UpdateBattle();
+
+    void DrawPong();
+    void DrawBattle();
+
     void DrawLine();
     void DrawTime();
+
+    void DrawScore();
 };
 
