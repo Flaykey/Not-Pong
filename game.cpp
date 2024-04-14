@@ -65,7 +65,7 @@ void Game::Update()
 void Game::Draw()
 {   
     this->DrawScore();
-    
+
     switch (this->state)
     {
     case 1:
@@ -171,7 +171,7 @@ void Game::DrawTime()
         }
     }
     else if(Timer == 0){
-        this->state++;
+        //this->state++;
         // DrawText("GO!", GetScreenWidth() / 2 - 65, 40, 100, WHITE);
         
         // if(GetTime() - ResetLastTime >= 1){
